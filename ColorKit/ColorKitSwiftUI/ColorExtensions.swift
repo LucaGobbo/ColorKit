@@ -10,6 +10,7 @@ import SwiftUI
 
 extension CIColor {
     @available(iOS 14.0, *)
+    @available(tvOS 14.0, *)
     public convenience init?(color: Color) {
         self.init(nativeColor: color.nativeColor)
     }
@@ -18,6 +19,7 @@ extension CIColor {
 extension Color {
 
     @available(iOS 15.0, *)
+    @available(tvOS 15.0, *)
     public init(nativeColor: NativeColor) {
         #if canImport(UIKit)
             self.init(uiColor: nativeColor)
@@ -32,6 +34,7 @@ extension Color {
     ///
     /// on iOS it's an `UIImage`, on macOS it's an `NSImage`
     @available(iOS 14.0, *)
+    @available(tvOS 14.0, *)
     public var nativeColor: NativeColor {
         #if canImport(UIKit)
             guard let cgColor else { return NativeColor.black }
@@ -51,6 +54,7 @@ extension Color {
 extension NativeColor {
     /// converts a `NativeColor` into a SwiftUI `Color`
     @available(iOS 15.0, *)
+    @available(tvOS 15.0, *)
     public var color: Color {
         return Color(nativeColor: self)
     }

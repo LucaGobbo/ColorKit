@@ -11,6 +11,7 @@ import SwiftUI
 extension ColorPalette {
 
     @available(iOS 14.0, *)
+    @available(tvOS 14.0, *)
     public init?(orderedColors: [Color], darkBackground: Bool = true, ignoreContrastRatio: Bool = false) {
         self.init(
             orderedColors: orderedColors.map { $0.nativeColor },
@@ -20,6 +21,7 @@ extension ColorPalette {
     }
 
     @available(iOS 14.0, *)
+    @available(tvOS 14.0, *)
     public init?(colors: [Color], darkBackground: Bool = true, ignoreContrastRatio: Bool = false) {
         self.init(
             orderedColors: colors.map { $0.nativeColor },

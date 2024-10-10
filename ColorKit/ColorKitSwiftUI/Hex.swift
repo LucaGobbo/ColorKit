@@ -11,9 +11,11 @@ import SwiftUI
 extension Color {
 
     @available(iOS 14.0, *)
+    @available(tvOS 14.0, *)
     public var hex: String { nativeColor.hex }
 
     @available(iOS 15.0, *)
+    @available(tvOS 15.0, *)
     public init?(hex: String) {
         guard let color = NativeColor(hex: hex)?.color else { return nil }
         self = color

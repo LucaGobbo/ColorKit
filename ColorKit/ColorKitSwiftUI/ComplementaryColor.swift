@@ -12,6 +12,7 @@ extension Color {
     /// Computes the complementary color of the current color instance.
     /// Complementary colors are opposite on the color wheel.
     @available(iOS 15.0, *)
+    @available(tvOS 15.0, *)
     public var complementaryColor: Color {
         Color(nativeColor: self.nativeColor.complementaryColor)
     }

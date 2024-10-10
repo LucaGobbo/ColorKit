@@ -13,6 +13,7 @@ extension Color {
     /// This assume that the color is using the sRGB color space.
     /// This is the relative brightness, normalized where 0 is black and 1 is white.
     @available(iOS 14.0, *)
+    @available(tvOS 14.0, *)
     public var relativeLuminance: CGFloat {
         nativeColor.relativeLuminance
     }

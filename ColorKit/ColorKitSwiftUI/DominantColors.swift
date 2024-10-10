@@ -8,6 +8,7 @@
 import ColorKit
 import SwiftUI
 
+@available(tvOS 16.0, *)
 @available(iOS 16.0, *)
 extension ImageRenderer {
     @MainActor
@@ -22,6 +23,7 @@ extension ImageRenderer {
     }
 }
 
+@available(tvOS 16.0, *)
 @available(iOS 16.0, *)
 extension View {
 
