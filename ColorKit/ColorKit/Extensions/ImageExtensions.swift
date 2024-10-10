@@ -20,8 +20,6 @@ extension NativeImage {
             return CGSize(width: size.width * scale, height: size.height * scale)
         #elseif canImport(AppKit)
             return CGSize(width: size.width, height: size.height)
-        #else
-            return .zero
         #endif
     }
 
@@ -70,8 +68,6 @@ extension Image {
             self.init(uiImage: nativeImage)
         #elseif canImport(AppKit)
             self.init(nsImage: nativeImage)
-        #else
-            self = nativeImage
         #endif
     }
 

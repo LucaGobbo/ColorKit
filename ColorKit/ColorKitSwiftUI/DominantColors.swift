@@ -17,8 +17,6 @@ extension ImageRenderer {
             return self.uiImage
         #elseif canImport(AppKit)
             return self.nsImage
-        #else
-            return nil
         #endif
     }
 }

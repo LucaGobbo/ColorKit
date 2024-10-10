@@ -141,11 +141,13 @@ extension NativeImage {
                 throw ImageColorError.cgImageFailure
             }
 
-        #else
-
+        #elseif canImport(UIKit)
             guard let cgImage = resizedImage.cgImage else {
                 throw ImageColorError.cgImageFailure
             }
+        #else
+
+            throw ImageColorError.cgImageFailure
 
         #endif
 

@@ -18,10 +18,7 @@ extension CIColor {
         #if canImport(UIKit)
             self.init(color: nativeColor)
         #elseif canImport(AppKit)
-            
             self.init(color: nativeColor)
-        #else
-            return nil
         #endif
     }
 }

@@ -45,8 +45,6 @@ extension Color {
                 return NativeColor.black
             }
             return color
-        #else
-            return self
         #endif
     }
 }

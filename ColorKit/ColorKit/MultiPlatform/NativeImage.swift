@@ -9,8 +9,6 @@
     public import UIKit
 #elseif canImport(AppKit)
     public import AppKit
-#else
-    public import SwiftUI
 #endif
 
 #if canImport(UIKit)
@@ -30,6 +28,4 @@
         }
     }
 
-#else
-    public typealias NativeImage = Image
 #endif
