@@ -8,14 +8,14 @@
 
 import Foundation
 
-struct Lab {
-    let L: CGFloat
-    let a: CGFloat
-    let b: CGFloat
+package struct Lab {
+    package    let L: CGFloat
+    package let a: CGFloat
+    package let b: CGFloat
 }
 
-struct LabCalculator {
-    static func convert(RGB: RGB) -> Lab {
+package struct LabCalculator {
+ package   static func convert(RGB: RGB) -> Lab {
         let XYZ = XYZCalculator.convert(rgb: RGB)
         let Lab = LabCalculator.convert(XYZ: XYZ)
         return Lab

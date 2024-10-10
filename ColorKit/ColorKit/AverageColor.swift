@@ -10,7 +10,7 @@ import CoreImage
 
 extension NativeImage {
 
-    enum ImageColorError: Error {
+   package enum ImageColorError: Error {
         /// The `CIImage` instance could not be created.
         case ciImageFailure
 

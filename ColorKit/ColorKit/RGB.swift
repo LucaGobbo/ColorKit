@@ -15,15 +15,21 @@ import Foundation
 
 #endif
 
-struct RGB {
-    let R: CGFloat
-    let G: CGFloat
-    let B: CGFloat
+package struct RGB {
+    package let R: CGFloat
+    package let G: CGFloat
+    package let B: CGFloat
+
+    package init(R: CGFloat, G: CGFloat, B: CGFloat) {
+        self.R = R
+        self.G = G
+        self.B = B
+    }
 }
 
 extension NativeColor {
 
-    // MARK: - Pulic
+    // MARK: - Public
 
     /// The red (R) channel of the RGB color space as a value from 0.0 to 1.0.
     public var red: CGFloat {
