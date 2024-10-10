@@ -3,6 +3,7 @@
 <p align="center"><img src="Assets/colorkit_banner.jpg"/></p>
 
 **ColorKit** is your companion to work with colors on iOS, macOS, tvOS & visionOS.
+*ColorKit supports: SwiftUI, UIKit, & AppKit.*
 
 <p align="center">
     <a href="LICENSE">
@@ -28,8 +29,6 @@
 
 ### Dominant Colors
 **ColorKit** makes it easy to find the dominant colors of an image. It returns a color palette of the most common colors on the image.
-
-it supports UIKit, AppKit, and SwiftUI
 
 ```swift
 let dominantColors = try image.dominantColors()
