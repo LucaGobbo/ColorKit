@@ -27,6 +27,13 @@
 
 ## Features
 
+### SwiftUI
+
+* All Features from `UIColor`/`NSColor` are also available in the SwiftUI `Color` type.
+* All Feature usable on `UIImage`/`NSImage` are also available in the SwiftUI `View` type.
+
+---
+
 ### Dominant Colors
 **ColorKit** makes it easy to find the dominant colors of an image. It returns a color palette of the most common colors on the image.
 
@@ -148,13 +155,6 @@ let relativeLuminance = UIColor.green.relativeLuminance
 ```swift
 let complementaryColor = UIColor.green.complementaryColor
 ```
-
----
-
-### SwiftUI
-
-* All publicly available APIs from `UIColor`/`NSColor` are available in the SwiftUI `Color` type.
-* All publicly available APIs are available in the SwiftUI `View` type.
 
 ---
 
