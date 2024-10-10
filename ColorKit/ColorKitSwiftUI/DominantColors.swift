@@ -25,6 +25,10 @@ extension ImageRenderer {
 @available(iOS 16.0, *)
 extension View {
 
+    public typealias DominantColorQuality = NativeImage.DominantColorQuality
+    public typealias DominantColorAlgorithm = NativeImage.DominantColorAlgorithm
+    typealias ImageColorError = NativeImage.ImageColorError
+
     /// Uses a `ImageRender` to snapshot you view, and create dominant colors
     ///
     /// Attempts to computes the dominant colors of the image.
@@ -36,14 +40,14 @@ extension View {
     /// - Returns: The dominant colors as array of `NativeColor` instances. When using the `.iterative` algorithm, this array is ordered where the first color is the most dominant one.
     @MainActor
     public func dominatColors(
-        with quality: NativeImage.DominantColorQuality = .fair,
-        algorithm: NativeImage.DominantColorAlgorithm = .iterative
+        with quality: DominantColorQuality = .fair,
+        algorithm: DominantColorAlgorithm = .iterative
     ) throws -> [Color] {
 
         let renderer = ImageRenderer(content: self)
 
         guard let capture = renderer.nativeImage else {
-            throw NativeImage.ImageColorError.outputImageFailure
+            throw ImageColorError.outputImageFailure
         }
         let colors = try capture.dominantColors(with: quality, algorithm: algorithm)
 
