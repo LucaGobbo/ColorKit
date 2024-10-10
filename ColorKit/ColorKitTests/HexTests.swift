@@ -6,79 +6,93 @@
 //  Copyright © 2020 BorisEmorine. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
+
 @testable import ColorKit
 
-class HexTests: XCTestCase {
-    
-    private let blackHex = "#000000"
-    private let whiteHex = "#ffffff"
-    private let redHex = "#ff0000"
-    private let darkGreen = "#32a852"
-    private let lightGreen = "#43ff64d9"
+#if canImport(AppKit)
+    import AppKit
 
-    // Init
-    
-    func testInitBlack() {
-        let color = UIColor(hex: blackHex)!
-        XCTAssertEqual(color.red, 0)
-        XCTAssertEqual(color.green, 0)
-        XCTAssertEqual(color.blue, 0)
-        XCTAssertEqual(color.alpha, 1)
+#elseif canImport(UIKit)
+    import UIKit
+
+#endif
+
+@Suite(.tags(.colors))
+struct HexTests {
+    fileprivate static let blackHex = "#000000"
+    fileprivate static let whiteHex = "#ffffff"
+    fileprivate static let redHex = "#ff0000"
+    fileprivate static let darkGreen = "#32a852"
+    fileprivate static let lightGreen = "#43ff64d9"
+
+    // init
+
+    struct InitHex {
+        @Test func initBlack() throws {
+            let color = try #require(NativeColor(hex: HexTests.blackHex))
+
+            #expect(color.red == 0)
+            #expect(color.green == 0)
+            #expect(color.blue == 0)
+            #expect(color.alpha == 1)
+        }
+
+        @Test func initWhite() throws {
+            let color = try #require(NativeColor(hex: HexTests.whiteHex))
+            #expect(color.red == 1)
+            #expect(color.green == 1)
+            #expect(color.blue == 1)
+            #expect(color.alpha == 1)
+        }
+
+        @Test func initRed() throws {
+            let color = try #require(NativeColor(hex: HexTests.redHex))
+            #expect(color.red == 255.0 / 255.0)
+            #expect(color.green == 0.0 / 255.0)
+            #expect(color.blue == 0.0 / 255.0)
+            #expect(color.alpha == 1)
+        }
+
+        @Test func initDarkGreen() throws {
+            let color = try #require(NativeColor(hex: HexTests.darkGreen))
+            #expect(color.red == 50.0 / 255.0)
+            #expect(color.green == 168.0 / 255.0)
+            #expect(color.blue == 82.0 / 255.0)
+            #expect(color.alpha == 1)
+        }
+
+        @Test func initLightGreen() throws {
+            let color = try #require(NativeColor(hex: HexTests.lightGreen))
+            #expect(color.red == 67.0 / 255.0)
+            #expect(color.green == 255.0 / 255.0)
+            #expect(color.blue == 100.0 / 255.0)
+            #expect(areFloatsEqual(color.alpha, 0.85, accuracy: 0.001))
+        }
     }
-    
-    func testInitWhite() {
-        let color = UIColor(hex: whiteHex)!
-        XCTAssertEqual(color.red, 1)
-        XCTAssertEqual(color.green, 1)
-        XCTAssertEqual(color.blue, 1)
-        XCTAssertEqual(color.alpha, 1)
-    }
-    
-    func testInitRed() {
-        let color = UIColor(hex: redHex)!
-        XCTAssertEqual(color.red, 255.0 / 255.0)
-        XCTAssertEqual(color.green, 0.0 / 255.0)
-        XCTAssertEqual(color.blue, 0.0 / 255.0)
-        XCTAssertEqual(color.alpha, 1)
-    }
-    
-    func testInitDarkGreen() {
-        let color = UIColor(hex: darkGreen)!
-        XCTAssertEqual(color.red, 50.0 / 255.0)
-        XCTAssertEqual(color.green, 168.0 / 255.0)
-        XCTAssertEqual(color.blue, 82.0 / 255.0)
-        XCTAssertEqual(color.alpha, 1)
-    }
-    
-    func testInitLightGreen() {
-        let color = UIColor(hex: lightGreen)!
-        XCTAssertEqual(color.red, 67.0 / 255.0)
-        XCTAssertEqual(color.green, 255.0 / 255.0)
-        XCTAssertEqual(color.blue, 100.0 / 255.0)
-        XCTAssertEqual(color.alpha, 0.85, accuracy: 0.001)
-    }
-    
+
     // hex
-    
-    func testHexBlack() {
-        let color = UIColor.black
-        XCTAssertEqual(color.hex, blackHex)
+
+    struct Hex {
+        @Test func hexBlack() {
+            let color = NativeColor.black
+            #expect(color.hex == HexTests.blackHex)
+        }
+
+        @Test func hexWhite() {
+            let color = NativeColor.white
+            #expect(color.hex == HexTests.whiteHex)
+        }
+
+        @Test func hexRed() {
+            let color = NativeColor.red()
+            #expect(color.hex == HexTests.redHex)
+        }
+
+        @Test func hexDarkGreen() {
+            let color = NativeColor(red: 50.0 / 255.0, green: 168.0 / 255.0, blue: 82.0 / 255.0, alpha: 1.0)
+            #expect(color.hex == HexTests.darkGreen)
+        }
     }
-    
-    func testHexWhite() {
-        let color = UIColor.white
-        XCTAssertEqual(color.hex, whiteHex)
-    }
-    
-    func testHexRed() {
-        let color = UIColor.red
-        XCTAssertEqual(color.hex, redHex)
-    }
-    
-    func testHexDarkGreen() {
-        let color = UIColor(red: 50.0 / 255.0, green: 168.0 / 255.0, blue: 82.0 / 255.0, alpha: 1.0)
-        XCTAssertEqual(color.hex, darkGreen)
-    }
-    
 }

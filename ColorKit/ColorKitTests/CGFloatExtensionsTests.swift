@@ -6,21 +6,24 @@
 //  Copyright © 2020 BorisEmorine. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
+
 @testable import ColorKit
 
-class CGFloatExtensionsTests: XCTestCase {
+@Suite(.tags(.foundation))
+struct CGFloatExtensionsTests {
 
-    func testRoundedWithPrecision10() {
+    @Test func roundedWithPrecision10() {
         let sut: CGFloat = 100.39999999
         let roundedSut = sut.rounded(.toNearestOrEven, precision: 10)
-        XCTAssertEqual(roundedSut, 100.4)
+        #expect(roundedSut == 100.4)
     }
-    
-    func testRoundedWithPrecision100() {
+
+    @Test func roundedWithPrecision100() {
         let sut: CGFloat = 100.39999999
         let roundedSut = sut.rounded(.toNearestOrEven, precision: 100)
-        XCTAssertEqual(roundedSut, 100.40)
+        #expect(roundedSut == 100.40)
     }
-    
+
 }

@@ -2,7 +2,7 @@
 
 <p align="center"><img src="Assets/colorkit_banner.jpg"/></p>
 
-**ColorKit** is your companion to work with colors on iOS.
+**ColorKit** is your companion to work with colors on iOS, macOS, tvOS & visionOS.
 
 <p align="center">
     <a href="LICENSE">
@@ -12,7 +12,7 @@
         <img src="https://img.shields.io/badge/license-MIT-brightgreen.svg" alt="MIT License">
     </a>
     <a href="https://swift.org">
-        <img src="https://img.shields.io/badge/swift-5.1-brightgreen.svg" alt="Swift 5.1">
+        <img src="https://img.shields.io/badge/swift-6.0-brightgreen.svg" alt="Swift 6.0">
     </a>
 </p>
 
@@ -28,6 +28,8 @@
 
 ### Dominant Colors
 **ColorKit** makes it easy to find the dominant colors of an image. It returns a color palette of the most common colors on the image.
+
+it supports UIKit, AppKit, and SwiftUI
 
 ```swift
 let dominantColors = try image.dominantColors()
@@ -147,6 +149,30 @@ let relativeLuminance = UIColor.green.relativeLuminance
 ```swift
 let complementaryColor = UIColor.green.complementaryColor
 ```
+
+---
+
+### Multiplatform support
+
+Two typealiases: `NativeColor` & `NativeImage` are introduced, which makes it easier to work with **ColorKit** in a project that supports multiple platforms.
+
+on platforms that support UIKit, `NativeColor` resolves to an UIColor
+on platforms that support AppKit, `NativeColor` resolves to an NSColor
+
+additional inits are added to both `NativeColor` & `NativeImage` 
+
+- Creating a swiftUI `Color` from a `NativeColor`
+ ```swift
+ let nativeColor = NativeColor.red
+ let color = Color(nativeColor: nativeColor)
+ ```
+
+- Getting a `NativeColor` from a SwiftUI `Color` 
+ ```swift
+ let color = Color.green
+ let nativeColor = color.nativeColor
+ ```
+
 
 </br>
 

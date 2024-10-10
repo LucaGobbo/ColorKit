@@ -6,44 +6,47 @@
 //  Copyright © 2020 BorisEmorine. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
+
 @testable import ColorKit
 
-class ContrastRatioTests: XCTestCase {
+@Suite(.tags(.colors))
+struct ContrastRatioTests {
 
-    func testBlackWhite() {
-        let color = UIColor.white
-        let backgroundColor = UIColor.black
+    @Test func blackWhite() {
+        let color = NativeColor.white
+        let backgroundColor = NativeColor.black
         let contrastRatioResult = color.contrastRatio(with: backgroundColor)
-        XCTAssertEqual(contrastRatioResult.associatedValue, 21.0)
+        #expect(contrastRatioResult.associatedValue == 21.0)
     }
-    
-    func testWhiteBlack() {
-        let color = UIColor.black
-        let backgroundColor = UIColor.white
+
+    @Test func whiteBlack() {
+        let color = NativeColor.black
+        let backgroundColor = NativeColor.white
         let contrastRatioResult = color.contrastRatio(with: backgroundColor)
-        XCTAssertEqual(contrastRatioResult.associatedValue, 21.0)
+        #expect(contrastRatioResult.associatedValue == 21.0)
     }
-    
-    func testOrangeOrangeClose() {
-        let color = UIColor(red: 243.0 / 255.0, green: 120.0 / 255.0, blue: 9.0 / 255.0, alpha: 1.0)
-        let backgroundColor = UIColor(red: 222.0 / 255.0, green: 100.0 / 255.0, blue: 10.0 / 255.0, alpha: 1.0)
+
+    @Test func orangeOrangeClose() {
+        let color = NativeColor(red: 243.0 / 255.0, green: 120.0 / 255.0, blue: 9.0 / 255.0, alpha: 1.0)
+        let backgroundColor = NativeColor(red: 222.0 / 255.0, green: 100.0 / 255.0, blue: 10.0 / 255.0, alpha: 1.0)
         let contrastRatioResult = color.contrastRatio(with: backgroundColor)
-        XCTAssertEqual(contrastRatioResult.associatedValue, 1.26)
+        #expect(contrastRatioResult.associatedValue == 1.26)
     }
-    
-    func testOrangeOrange() {
-        let color = UIColor(red: 243.0 / 255.0, green: 120.0 / 255.0, blue: 9.0 / 255.0, alpha: 1.0)
-        let backgroundColor = UIColor(red: 243.0 / 255.0, green: 120.0 / 255.0, blue: 9.0 / 255.0, alpha: 1.0)
+
+    @Test func orangeOrange() {
+        let color = NativeColor(red: 243.0 / 255.0, green: 120.0 / 255.0, blue: 9.0 / 255.0, alpha: 1.0)
+        let backgroundColor = NativeColor(red: 243.0 / 255.0, green: 120.0 / 255.0, blue: 9.0 / 255.0, alpha: 1.0)
         let contrastRatioResult = color.contrastRatio(with: backgroundColor)
-        XCTAssertEqual(contrastRatioResult.associatedValue, 1.0)
+        #expect(contrastRatioResult.associatedValue == 1.0)
     }
-    
-    func testGreenPurple() {
-        let green = UIColor(red: 0.0 / 255.0, green: 255.0 / 255.0, blue: 0.0 / 255.0, alpha: 1.0)
-        let blue = UIColor(red: 0.0 / 255.0, green: 0.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0)
+
+    @Test func greenPurple() {
+        let green = NativeColor(red: 0.0 / 255.0, green: 255.0 / 255.0, blue: 0.0 / 255.0, alpha: 1.0)
+        let blue = NativeColor(red: 0.0 / 255.0, green: 0.0 / 255.0, blue: 255.0 / 255.0, alpha: 1.0)
         let contrastRatioResult = green.contrastRatio(with: blue)
-        XCTAssertEqual(contrastRatioResult.associatedValue, 6.27)
+        #expect(contrastRatioResult.associatedValue == 6.27)
     }
 
 }

@@ -6,32 +6,42 @@
 //  Copyright © 2020 BorisEmorine. All rights reserved.
 //
 
-import XCTest
+import ColorKit
+import Foundation
+import Testing
 
-class LabTests: XCTestCase {
+#if canImport(UIKit)
+    import UIKit
+#elseif canImport(AppKit)
+    import AppKit
 
-    func testGreen() {
-        let color = UIColor.green
-        
-        XCTAssertEqual(color.L, 87.74)
-        XCTAssertEqual(color.a, -86.18)
-        XCTAssertEqual(color.b, 83.18)
+#endif
+
+@Suite(.tags(.colors))
+struct LabTests {
+
+    @Test func green() {
+        let color = NativeColor.green()
+
+        #expect(color.L == 87.74)
+        #expect(color.a == -86.18)
+        #expect(color.b == 83.18)
     }
-    
-    func testWhite() {
-        let color = UIColor.white
-        
-        XCTAssertEqual(color.L, 100.0)
-        XCTAssertEqual(color.a, 0.01)
-        XCTAssertEqual(color.b, -0.01)
+
+    @Test func white() {
+        let color = NativeColor.white
+
+        #expect(color.L == 100.0)
+        #expect(color.a == 0.01)
+        #expect(color.b == -0.01)
     }
-    
-    func testArbitrary() {
-        let color = UIColor(red: 129.0 / 255.0, green: 200.0 / 255.0, blue: 10.0 / 255.0, alpha: 1.0)
-        
-        XCTAssertEqual(color.L, 73.55)
-        XCTAssertEqual(color.a, -46.45)
-        XCTAssertEqual(color.b, 72.04)
+
+    @Test func arbitrary() {
+        let color = NativeColor(red: 129.0 / 255.0, green: 200.0 / 255.0, blue: 10.0 / 255.0, alpha: 1.0)
+
+        #expect(color.L == 73.55)
+        #expect(color.a == -46.45)
+        #expect(color.b == 72.04)
     }
-    
+
 }

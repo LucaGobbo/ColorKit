@@ -6,10 +6,10 @@
 //  Copyright © 2020 BorisEmorine. All rights reserved.
 //
 
-import UIKit
+import Foundation
 
-extension UIColor {
-    
+extension NativeColor {
+
     /// Computes the relative luminance of the color.
     /// This assume that the color is using the sRGB color space.
     /// This is the relative brightness, normalized where 0 is black and 1 is white.
@@ -21,14 +21,14 @@ extension UIColor {
                 return pow((colorAttribute + 0.055) / 1.055, 2.4)
             }
         }
-        
+
         let linearR = toLinear(colorAttribute: red)
         let linearG = toLinear(colorAttribute: green)
         let linearB = toLinear(colorAttribute: blue)
-        
+
         let relativeLuminance = 0.2126 * linearR + 0.7152 * linearG + 0.0722 * linearB
-        
+
         return relativeLuminance.rounded(.toNearestOrEven, precision: 1000)
     }
-    
+
 }
