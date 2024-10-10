@@ -151,6 +151,13 @@ let complementaryColor = UIColor.green.complementaryColor
 
 ---
 
+### SwiftUI
+
+* All publicly available APIs from `UIColor`/`NSColor` are available in the SwiftUI `Color` type.
+* All publicly available APIs are available in the SwiftUI `View` type.
+
+---
+
 ### Multiplatform support
 
 Two typealiases: `NativeColor` & `NativeImage` are introduced, which makes it easier to work with **ColorKit** in a project that supports multiple platforms.
