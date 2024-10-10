@@ -18,6 +18,8 @@
 </p>
 
 - [Features](#features)
+- [SwiftUI](#swiftui)
+- [Multiplatform](#multiplatform)
 - [Installation](#installation)
 - [Sample Project](#sample-project)
 - [Contributing](#contributing)
@@ -26,11 +28,6 @@
 </br>
 
 ## Features
-
-### SwiftUI
-
-* All Features from `UIColor`/`NSColor` are also available in the SwiftUI `Color` type.
-* All Feature usable on `UIImage`/`NSImage` are also available in the SwiftUI `View` type.
 
 ---
 
@@ -156,9 +153,16 @@ let relativeLuminance = UIColor.green.relativeLuminance
 let complementaryColor = UIColor.green.complementaryColor
 ```
 
----
+</br >
 
-### Multiplatform support
+## SwiftUI
+
+* All Features from `UIColor`/`NSColor` are also available in the SwiftUI `Color` type.
+* All Feature usable on `UIImage`/`NSImage` are also available in the SwiftUI `View` type.
+
+</br >
+
+## Multiplatform
 
 Two typealiases: `NativeColor` & `NativeImage` are introduced, which makes it easier to work with **ColorKit** in a project that supports multiple platforms.
 
