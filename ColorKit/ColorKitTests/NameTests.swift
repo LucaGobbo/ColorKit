@@ -6,59 +6,65 @@
 //  Copyright © 2020 BorisEmorine. All rights reserved.
 //
 
-import XCTest
 import ColorKit
+import Foundation
+import Testing
 
-class NameTests: XCTestCase {
+#if canImport(UIKit)
+    import UIKit
+#endif
 
-    func testPrimaryExact() {
-        let color = UIColor.blue
-        XCTAssertEqual(color.name(), "blue")
+@Suite(.tags(.colors))
+class NameTests {
+
+    @Test func primaryExact() {
+        let color = NativeColor.blue()
+        #expect(color.name() == "blue")
     }
-    
-    func testSecondaryExact() {
-        let color = UIColor.purple
-        XCTAssertEqual(color.name(), "violet")
+
+    @Test func secondaryExact() {
+        let color = NativeColor.purple
+        #expect(color.name() == "violet")
     }
-    
-    func testTertiaryExact() {
-        let color = UIColor(red: 0.5, green: 1.0, blue: 0.0, alpha: 1.0)
-        XCTAssertEqual(color.name(), "chartreuse")
+
+    @Test func tertiaryExact() {
+        let color = NativeColor(red: 0.5, green: 1.0, blue: 0.0, alpha: 1.0)
+        #expect(color.name() == "chartreuse")
     }
-    
-    func testClose() {
-        let color = UIColor(red: 0.9, green: 0.0, blue: 0.0, alpha: 1.0)
-        XCTAssertEqual(color.name(), "red")
+
+    @Test func close() {
+        let color = NativeColor(red: 0.9, green: 0.0, blue: 0.0, alpha: 1.0)
+        #expect(color.name() == "red")
     }
-    
-    func testBlack() {
-        let color = UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
-        XCTAssertEqual(color.name(), "black")
+
+    @Test func black() {
+        let color = NativeColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        #expect(color.name() == "black")
     }
-    
-    func testWhite() {
-        let color = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        XCTAssertEqual(color.name(), "white")
+
+    @Test func white() {
+        let color = NativeColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        #expect(color.name() == "white")
     }
-    
-    func testGray() {
-        let color = UIColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
-        XCTAssertEqual(color.name(), "gray")
+
+    @Test func gray() {
+        let color = NativeColor(red: 0.5, green: 0.5, blue: 0.5, alpha: 1.0)
+        #expect(color.name() == "gray")
     }
-    
-    func testDarkGray() {
-        let color = UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0)
-        XCTAssertEqual(color.name(), "gray")
+
+    @Test func darkGray() {
+        let color = NativeColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1.0)
+        #expect(color.name() == "gray")
     }
-    
-    func testLightGray() {
-        let color = UIColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1.0)
-        XCTAssertEqual(color.name(), "gray")
+
+    @Test func lightGray() {
+        let color = NativeColor(red: 0.7, green: 0.7, blue: 0.7, alpha: 1.0)
+        #expect(color.name() == "gray")
     }
-    
-    func testRandom() {
-        let color = UIColor.random()
-        XCTAssertNotNil(color.name())
+
+    @Test func random() {
+        let color = NativeColor.random()
+        #expect(color.name() != nil)
     }
-    
+
 }

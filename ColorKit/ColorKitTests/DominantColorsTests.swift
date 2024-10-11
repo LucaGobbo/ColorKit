@@ -6,94 +6,98 @@
 //  Copyright © 2020 BorisEmorine. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
+
 @testable import ColorKit
 
-class DominantColorsTests: XCTestCase {
-    
-    func testGreenImage() throws {
-        let bundle = Bundle(for: type(of: self))
-        let image = UIImage(named: "Green_Square.jpg", in: bundle, compatibleWith: nil)!
+#if canImport(UIKit)
+    import UIKit
+#endif
+
+@Suite(.tags(.colors, .image))
+struct DominantColorsTests {
+
+    @Test func greenImage() throws {
+        let bundle = Bundle.module
+        let image = NativeImage(named: "Green_Square.jpg", in: bundle, compatibleWith: nil)!
         let dominantColors = try image.dominantColorFrequencies(with: .best)
-        
-        XCTAssertEqual(dominantColors.count, 1)
-        guard let distance = dominantColors.first?.color.difference(from: UIColor.green) else {
-            XCTFail("Could not get distance from dominant color.")
-            return
-        }
-        XCTAssertLessThan(distance.associatedValue, AverageColorTests.tolerance)
-        XCTAssertEqual(dominantColors.first?.frequency, 1.0)
+
+        #expect(dominantColors.count == 1)
+        let distance = try #require(
+            dominantColors.first?.color.difference(from: NativeColor.green()),
+            "Could not get distance from dominant color.")
+        #expect(distance.associatedValue < AverageColorTests.tolerance)
+        #expect(dominantColors.first?.frequency == 1.0)
     }
-    
-    func testBlackWhiteImage() throws {
-        let bundle = Bundle(for: type(of: self))
-        let image = UIImage(named: "Black_White_Square.jpg", in: bundle, compatibleWith: nil)!
+
+    @Test func blackWhiteImage() throws {
+        let bundle = Bundle.module
+        let image = NativeImage(named: "Black_White_Square.jpg", in: bundle, compatibleWith: nil)!
         let colorFrequencies = try image.dominantColorFrequencies(with: .best)
         let dominantColors = colorFrequencies.map({ $0.color })
 
-        XCTAssertEqual(dominantColors.count, 2)
-        XCTAssertTrue(dominantColors.contains(UIColor(red: 0, green: 0, blue: 0, alpha: 1)))
-        XCTAssertTrue(dominantColors.contains(UIColor(red: 1, green: 1, blue: 1, alpha: 1)))
+        #expect(dominantColors.count == 2)
+        #expect(dominantColors.contains(NativeColor(red: 0, green: 0, blue: 0, alpha: 1)))
+        #expect(dominantColors.contains(NativeColor(red: 1, green: 1, blue: 1, alpha: 1)))
         verifySorted(colorsFrequencies: colorFrequencies)
-        
-        XCTAssertEqual(colorFrequencies.first?.frequency, 0.5)
-        XCTAssertEqual(colorFrequencies[1].frequency, 0.5)
+
+        #expect(colorFrequencies.first?.frequency == 0.5)
+        #expect(colorFrequencies[1].frequency == 0.5)
     }
-    
-    func testRedBlueGreenImage() throws {
-        let bundle = Bundle(for: type(of: self))
-        let image = UIImage(named: "Red_Green_Blue.png", in: bundle, compatibleWith: nil)!
+
+    @Test func redBlueGreenImage() throws {
+        let bundle = Bundle.module
+        let image = NativeImage(named: "Red_Green_Blue.png", in: bundle, compatibleWith: nil)!
         let colorFrequencies = try image.dominantColorFrequencies(with: .best)
         let dominantColors = colorFrequencies.map({ $0.color })
 
-        XCTAssertEqual(dominantColors.count, 3)
-        XCTAssertTrue(dominantColors.contains(UIColor(red: 1, green: 0, blue: 0, alpha: 1)))
-        XCTAssertTrue(dominantColors.contains(UIColor(red: 0, green: 1, blue: 0, alpha: 1)))
-        XCTAssertTrue(dominantColors.contains(UIColor(red: 0, green: 0, blue: 1, alpha: 1)))
+        #expect(dominantColors.count == 3)
+        #expect(dominantColors.contains(NativeColor(red: 1, green: 0, blue: 0, alpha: 1)))
+        #expect(dominantColors.contains(NativeColor(red: 0, green: 1, blue: 0, alpha: 1)))
+        #expect(dominantColors.contains(NativeColor(red: 0, green: 0, blue: 1, alpha: 1)))
         verifySorted(colorsFrequencies: colorFrequencies)
     }
-    
-    func testRedBlueGreenBlack() throws {
-        let bundle = Bundle(for: type(of: self))
-        let image = UIImage(named: "Red_Green_Blue_Black_Mini.png", in: bundle, compatibleWith: nil)!
+
+    @Test func redBlueGreenBlack() throws {
+        let bundle = Bundle.module
+        let image = NativeImage(named: "Red_Green_Blue_Black_Mini.png", in: bundle, compatibleWith: nil)!
         let colorFrequencies = try image.dominantColorFrequencies(with: .best)
         let dominantColors = colorFrequencies.map({ $0.color })
 
-        XCTAssertEqual(dominantColors.count, 4)
-        XCTAssertTrue(dominantColors.contains(UIColor(red: 0, green: 0, blue: 0, alpha: 1)))
-        XCTAssertTrue(dominantColors.contains(UIColor(red: 1, green: 0, blue: 0, alpha: 1)))
-        XCTAssertTrue(dominantColors.contains(UIColor(red: 0, green: 1, blue: 0, alpha: 1)))
-        XCTAssertTrue(dominantColors.contains(UIColor(red: 0, green: 0, blue: 1, alpha: 1)))
+        #expect(dominantColors.count == 4)
+        #expect(dominantColors.contains(NativeColor(red: 0, green: 0, blue: 0, alpha: 1)))
+        #expect(dominantColors.contains(NativeColor(red: 1, green: 0, blue: 0, alpha: 1)))
+        #expect(dominantColors.contains(NativeColor(red: 0, green: 1, blue: 0, alpha: 1)))
+        #expect(dominantColors.contains(NativeColor(red: 0, green: 0, blue: 1, alpha: 1)))
         verifySorted(colorsFrequencies: colorFrequencies)
     }
-    
-    func testRedBlueGreenRandom() throws {
-        let bundle = Bundle(for: type(of: self))
-        let image = UIImage(named: "Red_Green_Blue_Random_Mini.png", in: bundle, compatibleWith: nil)!
+
+    @Test func redBlueGreenRandom() throws {
+        let bundle = Bundle.module
+        let image = NativeImage(named: "Red_Green_Blue_Random_Mini.png", in: bundle, compatibleWith: nil)!
         let colorFrequencies = try image.dominantColorFrequencies(with: .best)
         let dominantColors = colorFrequencies.map({ $0.color })
-        
-        XCTAssertTrue(dominantColors.contains(UIColor(red: 1, green: 0, blue: 0, alpha: 1)))
-        XCTAssertTrue(dominantColors.contains(UIColor(red: 0, green: 1, blue: 0, alpha: 1)))
-        XCTAssertTrue(dominantColors.contains(UIColor(red: 0, green: 0, blue: 1, alpha: 1)))
+
+        #expect(dominantColors.contains(NativeColor(red: 1, green: 0, blue: 0, alpha: 1)))
+        #expect(dominantColors.contains(NativeColor(red: 0, green: 1, blue: 0, alpha: 1)))
+        #expect(dominantColors.contains(NativeColor(red: 0, green: 0, blue: 1, alpha: 1)))
         verifySorted(colorsFrequencies: colorFrequencies)
     }
-    
-    func verifySorted(colorsFrequencies: [ColorFrequency]) {
+
+    private func verifySorted(colorsFrequencies: [ColorFrequency]) {
         var previousCount: CGFloat?
-        
+
         colorsFrequencies.forEach { (colorFrequency) in
             guard let oldCount = previousCount else {
                 previousCount = colorFrequency.frequency
                 return
             }
-            
-            if oldCount < colorFrequency.frequency {
-                XCTFail("The order of the color frenquecy is not correct.")
-            }
-            
+
+            #expect(oldCount >= colorFrequency.frequency, "The order of the color frenquecy is not correct.")
+
             previousCount = colorFrequency.frequency
         }
     }
-    
+
 }

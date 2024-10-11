@@ -6,29 +6,32 @@
 //  Copyright © 2020 BorisEmorine. All rights reserved.
 //
 
-import XCTest
+import Foundation
+import Testing
+
 @testable import ColorKit
 
-class RelativeLuminanceTests: XCTestCase {
+@Suite(.tags(.colors))
+class RelativeLuminanceTests {
 
-    func testWhite() {
-        let color = UIColor.white
-        XCTAssertEqual(color.relativeLuminance, 1.0)
+    @Test func white() {
+        let color = NativeColor.white
+        #expect(color.relativeLuminance == 1.0)
     }
-    
-    func testBlack() {
-        let color = UIColor.black
-        XCTAssertEqual(color.relativeLuminance, 0.0)
+
+    @Test func black() {
+        let color = NativeColor.black
+        #expect(color.relativeLuminance == 0.0)
     }
-    
-    func testOrange() {
-        let color = UIColor(red: 98.0 / 255.0, green: 44.0 / 255.0, blue: 8.0 / 255.0, alpha: 1.0)
-        XCTAssertEqual(color.relativeLuminance, 0.044)
+
+    @Test func orange() {
+        let color = NativeColor(red: 98.0 / 255.0, green: 44.0 / 255.0, blue: 8.0 / 255.0, alpha: 1.0)
+        #expect(color.relativeLuminance == 0.044)
     }
-    
-    func testPurple() {
-        let color = UIColor(red: 120 / 255.0, green: 90.0 / 255.0, blue: 200.0 / 255.0, alpha: 1.0)
-        XCTAssertEqual(color.relativeLuminance, 0.155)
+
+    @Test func purple() {
+        let color = NativeColor(red: 120 / 255.0, green: 90.0 / 255.0, blue: 200.0 / 255.0, alpha: 1.0)
+        #expect(color.relativeLuminance == 0.155)
     }
-    
+
 }
