@@ -19,18 +19,15 @@ let package = Package(
     ],
     targets: [
         .target(
-            name: "ColorKit",
-            path: "ColorKit/ColorKit"),
+            name: "ColorKit"),
 
         .target(
             name: "ColorKitSwiftUI",
-            dependencies: ["ColorKit"],
-            path: "ColorKit/ColorKitSwiftUI"),
+            dependencies: ["ColorKit"]),
 
         .testTarget(
             name: "ColorKitTests",
             dependencies: ["ColorKit"],
-            path: "ColorKit/ColorKitTests",
             resources: [.process("Resources")]),
     ],
     swiftLanguageModes: [.v6]
