@@ -43,4 +43,21 @@ extension Color {
     var rgb: RGB {
         RGB(R: self.red, G: self.green, B: self.blue)
     }
+    
+    // MARK: Internal
+    
+    @available(iOS 14.0, *)
+    var red255: CGFloat {
+        self.red * 255.0
+    }
+    
+    @available(iOS 14.0, *)
+    var green255: CGFloat {
+        self.green * 255.0
+    }
+    
+    @available(iOS 14.0, *)
+    var blue255: CGFloat {
+        self.blue * 255.0
+    }
 }

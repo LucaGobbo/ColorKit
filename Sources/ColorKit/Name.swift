@@ -58,45 +58,45 @@ struct NamedColorList {
 
     static let AdditivePrimaryColors = [
         NativeColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 1.0): NSLocalizedString(
-            "colorkit.color.name.primary.red", bundle: Bundle(for: ColorFrequency.self), comment: "red"),
+            "colorkit.color.name.primary.red", bundle: .module, comment: "red"),
         NativeColor(red: 0.0, green: 1.0, blue: 0.0, alpha: 1.0): NSLocalizedString(
-            "colorkit.color.name.primary.green", bundle: Bundle(for: ColorFrequency.self), comment: "green"),
+            "colorkit.color.name.primary.green", bundle: .module, comment: "green"),
         NativeColor(red: 0.0, green: 0.0, blue: 1.0, alpha: 1.0): NSLocalizedString(
-            "colorkit.color.name.primary.blue", bundle: Bundle(for: ColorFrequency.self), comment: "blue"),
+            "colorkit.color.name.primary.blue", bundle: .module, comment: "blue"),
     ]
 
     static let AdditiveSecondaryColors = [
         NativeColor(red: 1.0, green: 1.0, blue: 0.0, alpha: 1.0): NSLocalizedString(
-            "colorkit.color.name.secondary.yellow", bundle: Bundle(for: ColorFrequency.self), comment: "yellow"),
+            "colorkit.color.name.secondary.yellow", bundle: .module, comment: "yellow"),
         NativeColor(red: 1.0, green: 0.0, blue: 1.0, alpha: 1.0): NSLocalizedString(
-            "colorkit.color.name.secondary.magenta", bundle: Bundle(for: ColorFrequency.self), comment: "magenta"),
+            "colorkit.color.name.secondary.magenta", bundle: .module, comment: "magenta"),
         NativeColor(red: 0.0, green: 1.0, blue: 1.0, alpha: 1.0): NSLocalizedString(
-            "colorkit.color.name.secondary.cyan", bundle: Bundle(for: ColorFrequency.self), comment: "cyan"),
+            "colorkit.color.name.secondary.cyan", bundle: .module, comment: "cyan"),
     ]
 
     static let AdditiveTertiaryColors = [
         NativeColor(red: 0.0, green: 0.5, blue: 1.0, alpha: 1.0): NSLocalizedString(
-            "colorkit.color.name.tertiary.azure", bundle: Bundle(for: ColorFrequency.self), comment: "azure"),
+            "colorkit.color.name.tertiary.azure", bundle: .module, comment: "azure"),
         NativeColor(red: 0.5, green: 0.0, blue: 1.0, alpha: 1.0): NSLocalizedString(
-            "colorkit.color.name.tertiary.violet", bundle: Bundle(for: ColorFrequency.self), comment: "violet"),
+            "colorkit.color.name.tertiary.violet", bundle: .module, comment: "violet"),
         NativeColor(red: 1.0, green: 0.0, blue: 0.5, alpha: 1.0): NSLocalizedString(
-            "colorkit.color.name.tertiary.rose", bundle: Bundle(for: ColorFrequency.self), comment: "rose"),
+            "colorkit.color.name.tertiary.rose", bundle: .module, comment: "rose"),
         NativeColor(red: 1.0, green: 0.5, blue: 0.0, alpha: 1.0): NSLocalizedString(
-            "colorkit.color.name.tertiary.orange", bundle: Bundle(for: ColorFrequency.self), comment: "orange"),
+            "colorkit.color.name.tertiary.orange", bundle: .module, comment: "orange"),
         NativeColor(red: 0.5, green: 1.0, blue: 0.0, alpha: 1.0): NSLocalizedString(
-            "colorkit.color.name.tertiary.chartreuse", bundle: Bundle(for: ColorFrequency.self), comment: "chartreuse"),
+            "colorkit.color.name.tertiary.chartreuse", bundle: .module, comment: "chartreuse"),
         NativeColor(red: 0.0, green: 1.0, blue: 0.5, alpha: 1.0): NSLocalizedString(
-            "colorkit.color.name.tertiary.sprint_green", bundle: Bundle(for: ColorFrequency.self),
+            "colorkit.color.name.tertiary.sprint_green", bundle: .module,
             comment: "spring green"),
     ]
 
     static let GrayShadeColors = [
         NativeColor.black: NSLocalizedString(
-            "colorkit.color.name.gray_shade.black", bundle: Bundle(for: ColorFrequency.self), comment: "black"),
+            "colorkit.color.name.gray_shade.black", bundle: .module, comment: "black"),
         NativeColor.white: NSLocalizedString(
-            "colorkit.color.name.gray_shade.white", bundle: Bundle(for: ColorFrequency.self), comment: "white"),
+            "colorkit.color.name.gray_shade.white", bundle: .module, comment: "white"),
         NativeColor.gray: NSLocalizedString(
-            "colorkit.color.name.gray_shade.gray", bundle: Bundle(for: ColorFrequency.self), comment: "gray"),
+            "colorkit.color.name.gray_shade.gray", bundle: .module, comment: "gray"),
     ]
 
 }

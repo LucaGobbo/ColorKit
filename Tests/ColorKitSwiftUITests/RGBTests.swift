@@ -8,68 +8,64 @@
 
 import Foundation
 import Testing
-
+import SwiftUI
 @testable import ColorKit
+import ColorKitSwiftUI
 
-#if canImport(UIKit)
-    import UIKit
-#elseif canImport(AppKit)
-    import AppKit
-#endif
-
-@Suite(.tags(.colors, .kit))
+@Suite(.tags(.colors, .swiftUI))
 struct RGBTests {
 
+    @available(iOS 14.0, *)
     @Test func red() {
-        let red: NativeColor = NativeColor.red()
+        let red: Color = Color.red()
         #expect(red.red == 1.0)
         #expect(red.green == 0.0)
         #expect(red.blue == 0.0)
         #expect(red.alpha == 1.0)
     }
-
+    @available(iOS 14.0, *)
     @Test func green() {
-        let green = NativeColor.green()
+        let green = Color.green()
         #expect(green.red == 0.0)
         #expect(green.green == 1.0)
         #expect(green.blue == 0.0)
         #expect(green.alpha == 1.0)
     }
-
+    @available(iOS 14.0, *)
     @Test func blue() {
-        let blue = NativeColor.blue()
+        let blue = Color.blue()
         #expect(blue.red == 0.0)
         #expect(blue.green == 0.0)
         #expect(blue.blue == 1.0)
         #expect(blue.alpha == 1.0)
     }
-
+    @available(iOS 14.0, *)
     @Test func white() {
-        let blue = NativeColor.white
+        let blue = Color.white
         #expect(blue.red == 1.0)
         #expect(blue.green == 1.0)
         #expect(blue.blue == 1.0)
         #expect(blue.alpha == 1.0)
     }
-
+    @available(iOS 14.0, *)
     @Test func black() {
-        let blue = NativeColor.black
+        let blue = Color.black
         #expect(blue.red == 0.0)
         #expect(blue.green == 0.0)
         #expect(blue.blue == 0.0)
         #expect(blue.alpha == 1.0)
     }
-
+    @available(iOS 14.0, *)
     @Test func gray() {
-        let blue = NativeColor.gray
+        let blue = Color.gray
         #expect(blue.red == 0.5)
         #expect(blue.green == 0.5)
         #expect(blue.blue == 0.5)
         #expect(blue.alpha == 1.0)
     }
-
+    @available(iOS 14.0, *)
     @Test func purple() {
-        let blue = NativeColor.purple
+        let blue = Color.purple
         #expect(blue.red == 0.5)
         #expect(blue.green == 0.0)
         #expect(blue.blue == 0.5)

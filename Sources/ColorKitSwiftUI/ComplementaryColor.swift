@@ -14,6 +14,13 @@ extension Color {
     @available(iOS 15.0, *)
     @available(tvOS 15.0, *)
     public var complementaryColor: Color {
-        Color(nativeColor: self.nativeColor.complementaryColor)
+        Color(
+            red: (255.0 - red255) / 255.0,
+            green: (255.0 - green255) / 255.0,
+            blue: (255.0 - blue255) / 255.0,
+            opacity: alpha)
     }
+
+   
+
 }

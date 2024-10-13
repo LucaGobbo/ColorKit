@@ -51,7 +51,23 @@ extension View {
         }
         let colors = try capture.dominantColors(with: quality, algorithm: algorithm)
 
-        return colors.map { Color(nativeColor: $0) }
+        return colors.map { Color($0) }
+    }
+    
+    public func dominantColorFrequencies(with quality: DominantColorQuality = .fair) throws -> [ColorFrequency<Color>] {
+     
+        let renderer = ImageRenderer(content: self)
+        
+        guard let capture = renderer.nativeImage else {
+            throw ImageColorError.outputImageFailure
+        }
+        let colors = try capture.dominantColorFrequencies(with: quality)
+        
+        return colors.map {
+            
+            ColorFrequency(color: Color( $0.color), count: $0.frequency)
+            
+        }
     }
 
 }

@@ -14,7 +14,7 @@ import Testing
     import UIKit
 #endif
 
-@Suite(.tags(.colors))
+@Suite(.tags(.colors, .kit))
 class NameTests {
 
     @Test func primaryExact() {

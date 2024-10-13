@@ -10,7 +10,5 @@ extension Tag {
     @Tag static var colors: Self
     @Tag static var image: Self
     @Tag static var foundation: Self
-    
-    /// AppKit/UIKit
-    @Tag static var kit: Self
+    @Tag static var swiftUI: Self
 }

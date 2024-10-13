@@ -11,7 +11,7 @@ import Testing
 
 @testable import ColorKit
 
-@Suite(.tags(.image, .colors))
+@Suite(.tags(.image, .colors, .kit))
 struct DominantColorQualityTests {
 
     /// It should return the exact same size (original size) if the quality is set to best.

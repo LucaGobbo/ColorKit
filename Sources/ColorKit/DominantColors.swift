@@ -16,9 +16,9 @@ import CoreImage
 #endif
 
 /// A simple structure containing a color, and a frequency.
-public class ColorFrequency: CustomStringConvertible {
+public struct ColorFrequency<Color>: CustomStringConvertible {
     /// A simple `NativeColor` instance.
-    public let color: NativeColor
+    public let color: Color
 
     /// The frequency of the color.
     /// That is, how much it is present.
@@ -28,7 +28,7 @@ public class ColorFrequency: CustomStringConvertible {
         return "Color: \(color) - Frequency: \(frequency)"
     }
 
-    init(color: NativeColor, count: CGFloat) {
+    package init(color: Color, count: CGFloat) {
         self.frequency = count
         self.color = color
     }
@@ -126,7 +126,9 @@ extension NativeImage {
     /// - Parameters:
     ///   - quality: The quality used to determine the dominant colors. A higher quality will yield more accurate results, but will be slower.
     /// - Returns: The dominant colors as an ordered array of `ColorFrequency` instances, where the first element is the most common one. The frequency is represented as a percentage ranging from 0 to 1.
-    public func dominantColorFrequencies(with quality: DominantColorQuality = .fair) throws -> [ColorFrequency] {
+    public func dominantColorFrequencies(with quality: DominantColorQuality = .fair) throws -> [ColorFrequency<
+        NativeColor
+    >] {
         // ------
         // Step 1: Resize the image based on the requested quality
         // ------
@@ -186,7 +188,7 @@ extension NativeImage {
 
         let minCountThreshold = Int(targetSize.area * (0.01 / 100.0))
 
-        let filteredColorsCountMap = colorsCountedSet.compactMap { rgb -> ColorFrequency? in
+        let filteredColorsCountMap = colorsCountedSet.compactMap { rgb -> ColorFrequency<NativeColor>? in
             let count = colorsCountedSet.count(for: rgb)
 
             guard count > minCountThreshold else {
@@ -198,7 +200,8 @@ extension NativeImage {
             return ColorFrequency(
                 color: NativeColor(
                     red: CGFloat(rgb.R) / 255.0, green: CGFloat(rgb.G) / 255.0, blue: CGFloat(rgb.B) / 255.0, alpha: 1.0
-                ), count: CGFloat(count))
+                ), count: CGFloat(count)
+            )
         }
 
         // ------
@@ -221,7 +224,7 @@ extension NativeImage {
         // ------
 
         /// The main dominant colors on the picture.
-        var dominantColors = [ColorFrequency]()
+        var dominantColors = [ColorFrequency<NativeColor>]()
 
         /// The score that needs to be met to consider two colors similar.
         let colorDifferenceScoreThreshold: CGFloat = 10.0
@@ -229,7 +232,7 @@ extension NativeImage {
         // Combines colors that are similar.
         for colorFrequency in colorFrequencies {
             var bestMatchScore: CGFloat?
-            var bestMatchColorFrequency: ColorFrequency?
+            var bestMatchColorFrequency: ColorFrequency<NativeColor>?
             for dominantColor in dominantColors {
                 let differenceScore = colorFrequency.color.difference(from: dominantColor.color, using: .CIE76)
                     .associatedValue
@@ -273,7 +276,8 @@ extension NativeImage {
 
         dominantColors = dominantColors.map { colorFrequency -> ColorFrequency in
             let percentage = (100.0 / (dominantColorsTotalCount / colorFrequency.frequency) / 100.0).rounded(
-                .up, precision: 100)
+                .up, precision: 100
+            )
 
             return ColorFrequency(color: colorFrequency.color, count: percentage)
         }
@@ -306,14 +310,16 @@ extension NativeImage {
 
         context.render(
             outputImage, toBitmap: &bitmap, rowBytes: 4 * clusterCount, bounds: outputImage.extent,
-            format: CIFormat.RGBA8, colorSpace: ciImage.colorSpace!)
+            format: CIFormat.RGBA8, colorSpace: ciImage.colorSpace!
+        )
 
         var dominantColors = [NativeColor]()
 
         for i in 0..<clusterCount {
             let color = NativeColor(
                 red: CGFloat(bitmap[i * 4 + 0]) / 255.0, green: CGFloat(bitmap[i * 4 + 1]) / 255.0,
-                blue: CGFloat(bitmap[i * 4 + 2]) / 255.0, alpha: CGFloat(bitmap[i * 4 + 3]) / 255.0)
+                blue: CGFloat(bitmap[i * 4 + 2]) / 255.0, alpha: CGFloat(bitmap[i * 4 + 3]) / 255.0
+            )
             dominantColors.append(color)
         }
 

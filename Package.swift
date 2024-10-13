@@ -29,6 +29,11 @@ let package = Package(
             name: "ColorKitTests",
             dependencies: ["ColorKit"],
             resources: [.process("Resources")]),
+        
+            .testTarget(
+                name: "ColorKitSwiftUITests",
+                dependencies: ["ColorKitSwiftUI"],
+                resources: [.process("Resources")]),
     ],
     swiftLanguageModes: [.v6]
 )

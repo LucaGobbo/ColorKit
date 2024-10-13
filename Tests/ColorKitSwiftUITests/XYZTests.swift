@@ -8,34 +8,35 @@
 
 import Foundation
 import Testing
-
+import SwiftUI
 @testable import ColorKit
+@testable import ColorKitSwiftUI
 
-#if canImport(UIKit)
-    import UIKit
-#endif
 
-@Suite(.tags(.colors, .kit))
+@Suite(.tags(.colors, .swiftUI))
 struct XYZTests {
 
+    @available(iOS 14.0, *)
     @Test func green() {
-        let color = NativeColor.green()
+        let color = Color.green()
 
         #expect(color.X == 35.76)
         #expect(color.Y == 71.52)
         #expect(color.Z == 11.92)
     }
 
+    @available(iOS 14.0, *)
     @Test func white() {
-        let color = NativeColor.white
+        let color = Color.white
 
         #expect(color.X == 95.05)
         #expect(color.Y == 100.0)
         #expect(color.Z == 108.9)
     }
-
+    
+    @available(iOS 14.0, *)
     @Test func arbitrary() {
-        let color = NativeColor(red: 129.0 / 255.0, green: 200.0 / 255.0, blue: 10.0 / 255.0, alpha: 1.0)
+        let color = Color(red: 129.0 / 255.0, green: 200.0 / 255.0, blue: 10.0 / 255.0, opacity: 1.0)
 
         #expect(color.X == 29.76)
         #expect(color.Y == 46.0)

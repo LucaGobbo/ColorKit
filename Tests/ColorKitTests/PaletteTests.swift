@@ -15,7 +15,7 @@ import Testing
     import UIKit
 #endif
 
-@Suite(.tags(.colors))
+@Suite(.tags(.colors, .kit))
 struct PaletteTests {
 
     // MARK: - Colors
