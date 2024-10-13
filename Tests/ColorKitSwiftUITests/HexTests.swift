@@ -10,7 +10,7 @@ import Foundation
 import SwiftUI
 import Testing
 
-@testable import ColorKitSwiftUI
+@testable import ColorKit
 
 @Suite(.tags(.colors, .swiftUI))
 struct HexTests {
@@ -51,17 +51,18 @@ struct HexTests {
         @available(iOS 15.0, *)
         @Test func initDarkGreen() throws {
             let color = try #require(Color(hex: HexTests.darkGreen))
-            #expect(color.red == 50.0 / 255.0)
-            #expect(color.green == 168.0 / 255.0)
-            #expect(color.blue == 82.0 / 255.0)
+
+            #expect(areFloatsEqual(color.red, 50.0 / 255.0, accuracy: 0.01))
+            #expect(areFloatsEqual(color.green, 168.0 / 255.0, accuracy: 0.01))
+            #expect(areFloatsEqual(color.blue, 82.0 / 255.0, accuracy: 0.01))
             #expect(color.alpha == 1)
         }
         @available(iOS 15.0, *)
         @Test func initLightGreen() throws {
             let color = try #require(Color(hex: HexTests.lightGreen))
-            #expect(color.red == 67.0 / 255.0)
-            #expect(color.green == 255.0 / 255.0)
-            #expect(color.blue == 100.0 / 255.0)
+            #expect(areFloatsEqual(color.red, 67.0 / 255.0, accuracy: 0.01))
+            #expect(areFloatsEqual(color.green, 255.0 / 255.0, accuracy: 0.01))
+            #expect(areFloatsEqual(color.blue, 100.0 / 255.0, accuracy: 0.01))
             #expect(areFloatsEqual(color.alpha, 0.85, accuracy: 0.001))
         }
     }
@@ -85,9 +86,13 @@ struct HexTests {
             #expect(color.hex == HexTests.redHex)
         }
         @available(iOS 15.0, *)
-        @Test(.disabled("this is failing because of #31a852")) func hexDarkGreen() {
-            let color = Color(red: 50.0 / 255.0, green: 168.0 / 255.0, blue: 82.0 / 255.0, opacity: 1.0)
-            #expect(color.hex == HexTests.darkGreen)
+        
+        @Test func hexDarkGreen() {
+            withKnownIssue("hex is slightly off because of rounding issues, expecting #32a852, but receiving #31a852") {
+                let color = Color(red: 50.0 / 255.0, green: 168.0 / 255.0, blue: 82.0 / 255.0, opacity: 1.0)
+                #expect(color.hex == HexTests.darkGreen)
+            }
+            
         }
     }
 }

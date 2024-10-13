@@ -19,6 +19,14 @@ extension Color {
     static func blue() -> Color {
         Color(red: 0, green: 0, blue: 1, opacity: 1)
     }
+    
+    static func white() -> Color {
+        Color(red: 1, green: 1, blue: 1, opacity: 1)
+    }
+    
+    static func black() -> Color {
+        Color(red: 0, green: 0, blue: 1, opacity: 1)
+    }
 }
 
 

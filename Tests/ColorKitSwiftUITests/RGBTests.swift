@@ -10,7 +10,7 @@ import Foundation
 import Testing
 import SwiftUI
 @testable import ColorKit
-import ColorKitSwiftUI
+import ColorKit
 
 @Suite(.tags(.colors, .swiftUI))
 struct RGBTests {
@@ -47,6 +47,16 @@ struct RGBTests {
         #expect(blue.blue == 1.0)
         #expect(blue.alpha == 1.0)
     }
+    
+    @available(iOS 14.0, *)
+    @Test func white2() {
+        let blue = Color.white()
+        #expect(blue.red == 1.0)
+        #expect(blue.green == 1.0)
+        #expect(blue.blue == 1.0)
+        #expect(blue.alpha == 1.0)
+    }
+    
     @available(iOS 14.0, *)
     @Test func black() {
         let blue = Color.black
@@ -57,7 +67,7 @@ struct RGBTests {
     }
     @available(iOS 14.0, *)
     @Test func gray() {
-        let blue = Color.gray
+        let blue = Color(NativeColor.gray)
         #expect(blue.red == 0.5)
         #expect(blue.green == 0.5)
         #expect(blue.blue == 0.5)
@@ -65,7 +75,7 @@ struct RGBTests {
     }
     @available(iOS 14.0, *)
     @Test func purple() {
-        let blue = Color.purple
+        let blue = Color(NativeColor.purple)
         #expect(blue.red == 0.5)
         #expect(blue.green == 0.0)
         #expect(blue.blue == 0.5)

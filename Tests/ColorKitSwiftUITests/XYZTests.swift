@@ -10,7 +10,7 @@ import Foundation
 import Testing
 import SwiftUI
 @testable import ColorKit
-@testable import ColorKitSwiftUI
+@testable import ColorKit
 
 
 @Suite(.tags(.colors, .swiftUI))
@@ -37,7 +37,7 @@ struct XYZTests {
     @available(iOS 14.0, *)
     @Test func arbitrary() {
         let color = Color(red: 129.0 / 255.0, green: 200.0 / 255.0, blue: 10.0 / 255.0, opacity: 1.0)
-
+        
         #expect(color.X == 29.76)
         #expect(color.Y == 46.0)
         #expect(color.Z == 7.6)

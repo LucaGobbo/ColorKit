@@ -23,26 +23,26 @@ struct PaletteTests {
     struct Colors {
 
         @Test func noColors() {
-            #expect(ColorPalette(colors: []) == nil)
+            #expect(ColorPalette(colors: [NativeColor]()) == nil)
         }
 
         @Test func oneColor() {
-            #expect(ColorPalette(colors: [.green()]) == nil)
+            #expect(ColorPalette(colors: [NativeColor.green()]) == nil)
         }
 
         @Test func sameColors() {
-            #expect(ColorPalette(colors: [.green(), .green(), .green(), .green()]) == nil)
+            #expect(ColorPalette(colors: [NativeColor.green(), .green(), .green(), .green()]) == nil)
         }
 
         @Test func blackWhiteColors() {
-            let colorPalette = ColorPalette(colors: [.black, .white])
+            let colorPalette = ColorPalette(colors: [NativeColor.black, .white])
             #expect(colorPalette?.background == .black)
             #expect(colorPalette?.primary == .white)
             #expect(colorPalette?.secondary == nil)
         }
 
         @Test func blackWhiteColorsBright() {
-            let colorPalette = ColorPalette(colors: [.black, .white], darkBackground: false)
+            let colorPalette = ColorPalette(colors: [NativeColor.black, .white], darkBackground: false)
             #expect(colorPalette?.background == .white)
             #expect(colorPalette?.primary == .black)
             #expect(colorPalette?.secondary == nil)
@@ -76,33 +76,33 @@ struct PaletteTests {
     // MARK: - Ordered Colors
     struct OrderedColors {
         @Test func noOrderedColors() {
-            #expect(ColorPalette(orderedColors: []) == nil)
+            #expect(ColorPalette(orderedColors: [NativeColor]()) == nil)
         }
 
         @Test func oneOrderedColor() {
-            #expect(ColorPalette(orderedColors: [.green()]) == nil)
+            #expect(ColorPalette(orderedColors: [NativeColor.green()]) == nil)
         }
 
         @Test func sameOrderedColors() {
-            #expect(ColorPalette(orderedColors: [.green(), .green(), .green(), .green()]) == nil)
+            #expect(ColorPalette(orderedColors: [NativeColor.green(), .green(), .green(), .green()]) == nil)
         }
 
         @Test func blackWhiteOrderedColors() {
-            let colorPalette = ColorPalette(orderedColors: [.black, .white])
+            let colorPalette = ColorPalette(orderedColors: [NativeColor.black, .white])
             #expect(colorPalette?.background == .black)
             #expect(colorPalette?.primary == .white)
             #expect(colorPalette?.secondary == nil)
         }
 
         @Test func whiteBlackOrderedColorsBright() {
-            let colorPalette = ColorPalette(orderedColors: [.white, .black], darkBackground: false)
+            let colorPalette = ColorPalette(orderedColors: [NativeColor.white, .black], darkBackground: false)
             #expect(colorPalette?.background == .white)
             #expect(colorPalette?.primary == .black)
             #expect(colorPalette?.secondary == nil)
         }
 
         @Test func blackWhiteOrderedColorsBright() {
-            let colorPalette = ColorPalette(orderedColors: [.black, .white], darkBackground: false)
+            let colorPalette = ColorPalette(orderedColors: [NativeColor.black, .white], darkBackground: false)
             #expect(colorPalette?.background == .black)
             #expect(colorPalette?.primary == .white)
             #expect(colorPalette?.secondary == nil)

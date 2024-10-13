@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension NativeColor {
+extension ColorProviding {
     /// The cyan (C) channel of the CMYK color space.
     public var cyan: CGFloat {
         return (1 - red - key) / (1 - key)

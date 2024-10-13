@@ -16,7 +16,7 @@ extension NativeColor {
     public func name() -> String {
         let colorList = NamedColorList.BasicColors
         var closestColor: (NativeColor, String)?
-        var bestMatch: NativeColor.ColorDifferenceResult = .init(value: CGFloat.infinity)
+        var bestMatch: ColorDifferenceResult = .init(value: CGFloat.infinity)
 
         for color in colorList {
             let difference = self.difference(from: color.0, using: .CIE94)

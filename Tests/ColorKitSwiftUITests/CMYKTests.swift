@@ -10,7 +10,7 @@ import Foundation
 import Testing
 import SwiftUI
 
-@testable import ColorKitSwiftUI
+@testable import ColorKit
 
 
 @Suite(.tags(.colors, .swiftUI))

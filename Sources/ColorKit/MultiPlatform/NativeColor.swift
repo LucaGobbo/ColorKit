@@ -11,6 +11,7 @@
     public import AppKit
 #endif
 
+/// Creates a stable type that either resolves to UIColor or NSColor
 #if canImport(UIKit)
     public typealias NativeColor = UIColor
 #elseif canImport(AppKit)

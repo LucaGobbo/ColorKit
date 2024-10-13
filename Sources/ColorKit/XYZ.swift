@@ -38,7 +38,7 @@ package struct XYZCalculator {
 
 }
 
-extension NativeColor {
+extension ColorProviding {
 
     /// The X value of the XYZ color space.
     public var X: CGFloat {

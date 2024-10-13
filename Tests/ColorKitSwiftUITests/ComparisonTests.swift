@@ -11,7 +11,7 @@ import Testing
 import SwiftUI
 
 @testable import ColorKit
-@testable import ColorKitSwiftUI
+@testable import ColorKit
 
 @Suite(.tags(.colors, .swiftUI))
 struct ComparisonTests {

@@ -10,30 +10,20 @@ let package = Package(
         .iOS(.v13), .macOS(.v13), .tvOS(.v13), .visionOS(.v1),
     ],
     products: [
-        .library(
-            name: "ColorKit",
-            targets: ["ColorKit"]),
-        .library(
-            name: "ColorKitSwiftUI",
-            targets: ["ColorKitSwiftUI"]),
+        .library(name: "ColorKit", targets: ["ColorKit"])
     ],
     targets: [
-        .target(
-            name: "ColorKit"),
-
-        .target(
-            name: "ColorKitSwiftUI",
-            dependencies: ["ColorKit"]),
+        .target(name: "ColorKit"),
 
         .testTarget(
             name: "ColorKitTests",
             dependencies: ["ColorKit"],
             resources: [.process("Resources")]),
-        
-            .testTarget(
-                name: "ColorKitSwiftUITests",
-                dependencies: ["ColorKitSwiftUI"],
-                resources: [.process("Resources")]),
+
+        .testTarget(
+            name: "ColorKitSwiftUITests",
+            dependencies: ["ColorKit"],
+            resources: [.process("Resources")]),
     ],
     swiftLanguageModes: [.v6]
 )
