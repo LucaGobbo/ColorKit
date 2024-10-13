@@ -74,6 +74,7 @@ extension NativeImage {
 extension View {
     /// Computes the average color of the image.
     @available(iOS 16.0, *)
+    @available(tvOS 16.0, *)
     public func averageColor() throws -> Color {
         let renderer = ImageRenderer(content: self)
 

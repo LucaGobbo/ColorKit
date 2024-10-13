@@ -12,7 +12,7 @@ import Testing
 @testable import ColorKit
 
 struct ConversionTests {
-    @available(iOS 15.0, *)
+
     @Test func red() {
         #expect(Color(red: 1, green: 0, blue: 0) === Color(NativeColor.red))
 

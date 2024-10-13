@@ -328,29 +328,27 @@ extension NativeImage {
     }
 }
 
-
-
-@available(tvOS 16.0, *)
 @available(iOS 16.0, *)
+@available(tvOS 16.0, *)
 extension ImageRenderer {
     @MainActor
     var nativeImage: NativeImage? {
-#if canImport(UIKit)
-        return self.uiImage
-#elseif canImport(AppKit)
-        return self.nsImage
-#endif
+        #if canImport(UIKit)
+            return self.uiImage
+        #elseif canImport(AppKit)
+            return self.nsImage
+        #endif
     }
 }
 
-@available(tvOS 16.0, *)
 @available(iOS 16.0, *)
+@available(tvOS 16.0, *)
 extension View {
-    
+
     public typealias DominantColorQuality = NativeImage.DominantColorQuality
     public typealias DominantColorAlgorithm = NativeImage.DominantColorAlgorithm
     typealias ImageColorError = NativeImage.ImageColorError
-    
+
     /// Uses a `ImageRender` to snapshot you view, and create dominant colors
     ///
     /// Attempts to computes the dominant colors of the image.
@@ -365,29 +363,29 @@ extension View {
         with quality: DominantColorQuality = .fair,
         algorithm: DominantColorAlgorithm = .iterative
     ) throws -> [Color] {
-        
+
         let renderer = ImageRenderer(content: self)
-        
+
         guard let capture = renderer.nativeImage else {
             throw ImageColorError.outputImageFailure
         }
         let colors = try capture.dominantColors(with: quality, algorithm: algorithm)
-        
+
         return colors.map { Color($0) }
     }
-    
+
     public func dominantColorFrequencies(with quality: DominantColorQuality = .fair) throws -> [ColorFrequency<Color>] {
-        
+
         let renderer = ImageRenderer(content: self)
-        
+
         guard let capture = renderer.nativeImage else {
             throw ImageColorError.outputImageFailure
         }
         let colors = try capture.dominantColorFrequencies(with: quality)
-        
+
         return colors.map {
-            ColorFrequency(color: Color( $0.color), count: $0.frequency)            
+            ColorFrequency(color: Color($0.color), count: $0.frequency)
         }
     }
-    
+
 }

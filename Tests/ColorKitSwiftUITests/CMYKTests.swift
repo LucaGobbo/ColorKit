@@ -7,16 +7,14 @@
 //
 
 import Foundation
-import Testing
 import SwiftUI
+import Testing
 
 @testable import ColorKit
-
 
 @Suite(.tags(.colors, .swiftUI))
 struct CMYKTests {
 
-    @available(iOS 14.0, *)
     @Test func green() {
         let color = Color.green()
 
@@ -25,7 +23,7 @@ struct CMYKTests {
         #expect(color.yellow == 1.0)
         #expect(color.key == 0.0)
     }
-    @available(iOS 14.0, *)
+
     @Test func blue() {
         let color = Color.blue()
 
@@ -34,7 +32,7 @@ struct CMYKTests {
         #expect(color.yellow == 0.0)
         #expect(color.key == 0.0)
     }
-    @available(iOS 14.0, *)
+
     @Test func white() {
         let color = Color.white
 
@@ -43,7 +41,7 @@ struct CMYKTests {
         #expect(color.yellow == 0.0)
         #expect(color.key == 0.0)
     }
-    @available(iOS 14.0, *)
+
     @Test func arbitrary() {
         let color = Color(red: 153.0 / 255.0, green: 71.0 / 255.0, blue: 206.0 / 255.0, opacity: 1.0)
 

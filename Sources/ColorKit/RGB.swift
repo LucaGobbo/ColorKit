@@ -79,36 +79,19 @@ extension NativeColor: ColorProviding {
 extension Color: ColorProviding {
 
     public var red: CGFloat {
-        if #available(iOS 14.0, *) {
-            return CIColor(color: self)?.red ?? 0
-        } else {
-            return 0
-        }
+        CIColor(color: self)?.red ?? 0
     }
 
     public var green: CGFloat {
-        if #available(iOS 14.0, *) {
-            return CIColor(color: self)?.green ?? 0
-        } else {
-            return 0
-        }
-
+        CIColor(color: self)?.green ?? 0
     }
 
     public var blue: CGFloat {
-        if #available(iOS 14.0, *) {
-            return CIColor(color: self)?.blue ?? 0
-        } else {
-            return 0
-        }
+        CIColor(color: self)?.blue ?? 0
     }
 
     public var opacity: CGFloat {
-        if #available(iOS 14.0, *) {
-            return CIColor(color: self)?.alpha ?? 0
-        } else {
-            return 0
-        }
+        CIColor(color: self)?.alpha ?? 0
     }
 
     public init(red: CGFloat, green: CGFloat, blue: CGFloat, alpha: CGFloat) {

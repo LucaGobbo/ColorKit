@@ -8,14 +8,12 @@
 
 import ColorKit
 import Foundation
-import Testing
 import SwiftUI
+import Testing
 
 @Suite(.tags(.colors, .swiftUI))
 struct LabTests {
 
-    
-    @available(iOS 14.0, *)
     @Test func green() {
         let color = Color.green()
 
@@ -24,7 +22,6 @@ struct LabTests {
         #expect(color.b == 83.18)
     }
 
-    @available(iOS 14.0, *)
     @Test func white() {
         let color = Color.white
 
@@ -33,7 +30,6 @@ struct LabTests {
         #expect(color.b == -0.01)
     }
 
-    @available(iOS 14.0, *)
     @Test func arbitrary() {
         let color = Color(red: 129.0 / 255.0, green: 200.0 / 255.0, blue: 10.0 / 255.0, opacity: 1.0)
 

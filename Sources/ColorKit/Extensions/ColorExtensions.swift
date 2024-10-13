@@ -13,23 +13,20 @@ import SwiftUI
     import AppKit
 #endif
 
-public extension CIColor {
-    convenience init(nativeColor: NativeColor) {
+extension CIColor {
+    public convenience init(nativeColor: NativeColor) {
         #if canImport(UIKit)
             self.init(color: nativeColor)
         #elseif canImport(AppKit)
-        
-        self.init(cgColor: nativeColor.cgColor)
+
+            self.init(cgColor: nativeColor.cgColor)
         #endif
     }
-    
-  
+
 }
 
-public extension CIColor {
-    @available(iOS 14.0, *)
-    @available(tvOS 14.0, *)
-    convenience init?(color: Color) {
-        self.init(nativeColor:  NativeColor(color))
+extension CIColor {
+    public convenience init?(color: Color) {
+        self.init(nativeColor: NativeColor(color))
     }
 }
