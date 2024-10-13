@@ -8,7 +8,7 @@
 
 import Foundation
 
-extension NativeColor {
+extension ColorProviding {
 
     /// Computes the relative luminance of the color.
     /// This assume that the color is using the sRGB color space.

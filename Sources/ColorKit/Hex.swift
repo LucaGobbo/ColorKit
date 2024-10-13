@@ -8,10 +8,10 @@
 
 import Foundation
 
-extension NativeColor {
+extension ColorProviding {
 
     /// Convenience initializer with hexadecimal values.
-    public convenience init?(hex: String) {
+    public init?(hex: String) {
         let hexString = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
 
         var hexValue = UInt64()

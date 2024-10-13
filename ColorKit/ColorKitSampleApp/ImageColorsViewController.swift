@@ -27,7 +27,7 @@ class ImageColorsViewController: UIViewController {
         }
     }
 
-    private var dominantColors = [ColorFrequency]() {
+    private var dominantColors = [ColorFrequency<UIColor>]() {
         didSet {
             tableView.reloadData()
         }

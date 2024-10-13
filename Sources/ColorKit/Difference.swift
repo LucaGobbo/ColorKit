@@ -14,79 +14,82 @@ import Foundation
     import AppKit
 #endif
 
-extension NativeColor {
 
-    public enum ColorDifferenceResult: Comparable {
-
-        /// There is no difference between the two colors.
-        case indentical(CGFloat)
-
-        /// The difference between the two colors is not perceptible by human eye.
-        case similar(CGFloat)
-
-        /// The difference between the two colors is perceptible through close observation.
-        case close(CGFloat)
-
-        /// The difference between the two colors is perceptible at a glance.
-        case near(CGFloat)
-
-        /// The two colors are different, but not opposite.
-        case different(CGFloat)
-
-        /// The two colors are more opposite than similar.
-        case far(CGFloat)
-
-        init(value: CGFloat) {
-            if value == 0 {
-                self = .indentical(value)
-            } else if value <= 1.0 {
-                self = .similar(value)
-            } else if value <= 2.0 {
-                self = .close(value)
-            } else if value <= 10.0 {
-                self = .near(value)
-            } else if value <= 50.0 {
-                self = .different(value)
-            } else {
-                self = .far(value)
-            }
+public enum ColorDifferenceResult: Comparable {
+    
+    /// There is no difference between the two colors.
+    case indentical(CGFloat)
+    
+    /// The difference between the two colors is not perceptible by human eye.
+    case similar(CGFloat)
+    
+    /// The difference between the two colors is perceptible through close observation.
+    case close(CGFloat)
+    
+    /// The difference between the two colors is perceptible at a glance.
+    case near(CGFloat)
+    
+    /// The two colors are different, but not opposite.
+    case different(CGFloat)
+    
+    /// The two colors are more opposite than similar.
+    case far(CGFloat)
+    
+    init(value: CGFloat) {
+        if value == 0 {
+            self = .indentical(value)
+        } else if value <= 1.0 {
+            self = .similar(value)
+        } else if value <= 2.0 {
+            self = .close(value)
+        } else if value <= 10.0 {
+            self = .near(value)
+        } else if value <= 50.0 {
+            self = .different(value)
+        } else {
+            self = .far(value)
         }
-
-        var associatedValue: CGFloat {
-            switch self {
-            case .indentical(let value),
+    }
+    
+    var associatedValue: CGFloat {
+        switch self {
+        case .indentical(let value),
                 .similar(let value),
                 .close(let value),
                 .near(let value),
                 .different(let value),
                 .far(let value):
-                return value
-            }
+            return value
         }
-
-        public static func < (lhs: NativeColor.ColorDifferenceResult, rhs: NativeColor.ColorDifferenceResult) -> Bool {
-            return lhs.associatedValue < rhs.associatedValue
-        }
-
     }
-
-    /// The different algorithms for comparing colors.
-    /// @see https://en.wikipedia.org/wiki/Color_difference
-    public enum DeltaEFormula {
-        /// The euclidean algorithm is the simplest and fastest one, but will yield results that are unexpected to the human eye. Especially in the green range.
-        /// It simply calculates the euclidean distance in the RGB color space.
-        case euclidean
-
-        /// The `CIE76`algorithm is fast and yields acceptable results in most scenario.
-        case CIE76
-
-        /// The `CIE94` algorithm is an improvement to the `CIE76`, especially for the saturated regions. It's marginally slower than `CIE76`.
-        case CIE94
-
-        /// The `CIEDE2000` algorithm is the most precise algorithm to compare colors.
-        /// It is considerably slower than its predecessors.
-        case CIEDE2000
+    
+    public static func < (lhs: ColorDifferenceResult, rhs: ColorDifferenceResult) -> Bool {
+        return lhs.associatedValue < rhs.associatedValue
     }
+    
+}
+
+/// The different algorithms for comparing colors.
+/// @see https://en.wikipedia.org/wiki/Color_difference
+public enum DeltaEFormula {
+    /// The euclidean algorithm is the simplest and fastest one, but will yield results that are unexpected to the human eye. Especially in the green range.
+    /// It simply calculates the euclidean distance in the RGB color space.
+    case euclidean
+    
+    /// The `CIE76`algorithm is fast and yields acceptable results in most scenario.
+    case CIE76
+    
+    /// The `CIE94` algorithm is an improvement to the `CIE76`, especially for the saturated regions. It's marginally slower than `CIE76`.
+    case CIE94
+    
+    /// The `CIEDE2000` algorithm is the most precise algorithm to compare colors.
+    /// It is considerably slower than its predecessors.
+    case CIEDE2000
+}
+
+extension ColorProviding {
+
+    
 
     /// Computes the difference between the passed in `NativeColor` instance.
     ///
@@ -94,7 +97,7 @@ extension NativeColor {
     ///   - color: The color to compare this instance to.
     ///   - formula: The algorithm to use to make the comparaison.
     /// - Returns: The different between the passed in `NativeColor` instance and this instance.
-    public func difference(from color: NativeColor, using formula: DeltaEFormula = .CIE94) -> ColorDifferenceResult {
+    public func difference(from color: Self, using formula: DeltaEFormula = .CIE94) -> ColorDifferenceResult {
         switch formula {
         case .euclidean:
             let differenceValue = sqrt(
@@ -107,7 +110,7 @@ extension NativeColor {
             let roundedDifferenceValue = differenceValue.rounded(.toNearestOrEven, precision: 100)
             return ColorDifferenceResult(value: roundedDifferenceValue)
         case .CIE94:
-            let differenceValue = NativeColor.deltaECIE94(lhs: self, rhs: color)
+            let differenceValue = Self.deltaECIE94(lhs: self, rhs: color)
             let roundedDifferenceValue = differenceValue.rounded(.toNearestOrEven, precision: 100)
             return ColorDifferenceResult(value: roundedDifferenceValue)
         default:
@@ -115,7 +118,7 @@ extension NativeColor {
         }
     }
 
-    private static func deltaECIE94(lhs: NativeColor, rhs: NativeColor) -> CGFloat {
+    private static func deltaECIE94(lhs: Self, rhs: Self) -> CGFloat {
         let kL: CGFloat = 1.0
         let kC: CGFloat = 1.0
         let kH: CGFloat = 1.0

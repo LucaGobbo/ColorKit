@@ -15,8 +15,8 @@ import Testing
     import UIKit
 #endif
 
-@Suite(.tags(.colors))
-class CMYKTests {
+@Suite(.tags(.colors, .kit))
+struct CMYKTests {
 
     @Test func green() {
         let color = NativeColor.green()

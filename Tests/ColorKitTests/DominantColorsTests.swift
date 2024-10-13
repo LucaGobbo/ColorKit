@@ -85,7 +85,7 @@ struct DominantColorsTests {
         verifySorted(colorsFrequencies: colorFrequencies)
     }
 
-    private func verifySorted(colorsFrequencies: [ColorFrequency]) {
+    private func verifySorted(colorsFrequencies: [ColorFrequency<NativeColor>]) {
         var previousCount: CGFloat?
 
         colorsFrequencies.forEach { (colorFrequency) in

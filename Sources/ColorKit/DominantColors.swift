@@ -7,6 +7,7 @@
 //
 
 import CoreImage
+import SwiftUI
 
 #if canImport(UIKit)
     import UIKit
@@ -16,9 +17,9 @@ import CoreImage
 #endif
 
 /// A simple structure containing a color, and a frequency.
-public class ColorFrequency: CustomStringConvertible {
+public struct ColorFrequency<Color>: CustomStringConvertible {
     /// A simple `NativeColor` instance.
-    public let color: NativeColor
+    public let color: Color
 
     /// The frequency of the color.
     /// That is, how much it is present.
@@ -28,7 +29,7 @@ public class ColorFrequency: CustomStringConvertible {
         return "Color: \(color) - Frequency: \(frequency)"
     }
 
-    init(color: NativeColor, count: CGFloat) {
+    package init(color: Color, count: CGFloat) {
         self.frequency = count
         self.color = color
     }
@@ -126,7 +127,9 @@ extension NativeImage {
     /// - Parameters:
     ///   - quality: The quality used to determine the dominant colors. A higher quality will yield more accurate results, but will be slower.
     /// - Returns: The dominant colors as an ordered array of `ColorFrequency` instances, where the first element is the most common one. The frequency is represented as a percentage ranging from 0 to 1.
-    public func dominantColorFrequencies(with quality: DominantColorQuality = .fair) throws -> [ColorFrequency] {
+    public func dominantColorFrequencies(with quality: DominantColorQuality = .fair) throws -> [ColorFrequency<
+        NativeColor
+    >] {
         // ------
         // Step 1: Resize the image based on the requested quality
         // ------
@@ -186,7 +189,7 @@ extension NativeImage {
 
         let minCountThreshold = Int(targetSize.area * (0.01 / 100.0))
 
-        let filteredColorsCountMap = colorsCountedSet.compactMap { rgb -> ColorFrequency? in
+        let filteredColorsCountMap = colorsCountedSet.compactMap { rgb -> ColorFrequency<NativeColor>? in
             let count = colorsCountedSet.count(for: rgb)
 
             guard count > minCountThreshold else {
@@ -198,7 +201,8 @@ extension NativeImage {
             return ColorFrequency(
                 color: NativeColor(
                     red: CGFloat(rgb.R) / 255.0, green: CGFloat(rgb.G) / 255.0, blue: CGFloat(rgb.B) / 255.0, alpha: 1.0
-                ), count: CGFloat(count))
+                ), count: CGFloat(count)
+            )
         }
 
         // ------
@@ -221,7 +225,7 @@ extension NativeImage {
         // ------
 
         /// The main dominant colors on the picture.
-        var dominantColors = [ColorFrequency]()
+        var dominantColors = [ColorFrequency<NativeColor>]()
 
         /// The score that needs to be met to consider two colors similar.
         let colorDifferenceScoreThreshold: CGFloat = 10.0
@@ -229,7 +233,7 @@ extension NativeImage {
         // Combines colors that are similar.
         for colorFrequency in colorFrequencies {
             var bestMatchScore: CGFloat?
-            var bestMatchColorFrequency: ColorFrequency?
+            var bestMatchColorFrequency: ColorFrequency<NativeColor>?
             for dominantColor in dominantColors {
                 let differenceScore = colorFrequency.color.difference(from: dominantColor.color, using: .CIE76)
                     .associatedValue
@@ -273,7 +277,8 @@ extension NativeImage {
 
         dominantColors = dominantColors.map { colorFrequency -> ColorFrequency in
             let percentage = (100.0 / (dominantColorsTotalCount / colorFrequency.frequency) / 100.0).rounded(
-                .up, precision: 100)
+                .up, precision: 100
+            )
 
             return ColorFrequency(color: colorFrequency.color, count: percentage)
         }
@@ -306,17 +311,85 @@ extension NativeImage {
 
         context.render(
             outputImage, toBitmap: &bitmap, rowBytes: 4 * clusterCount, bounds: outputImage.extent,
-            format: CIFormat.RGBA8, colorSpace: ciImage.colorSpace!)
+            format: CIFormat.RGBA8, colorSpace: ciImage.colorSpace!
+        )
 
         var dominantColors = [NativeColor]()
 
         for i in 0..<clusterCount {
             let color = NativeColor(
                 red: CGFloat(bitmap[i * 4 + 0]) / 255.0, green: CGFloat(bitmap[i * 4 + 1]) / 255.0,
-                blue: CGFloat(bitmap[i * 4 + 2]) / 255.0, alpha: CGFloat(bitmap[i * 4 + 3]) / 255.0)
+                blue: CGFloat(bitmap[i * 4 + 2]) / 255.0, alpha: CGFloat(bitmap[i * 4 + 3]) / 255.0
+            )
             dominantColors.append(color)
         }
 
         return dominantColors
     }
+}
+
+
+
+@available(tvOS 16.0, *)
+@available(iOS 16.0, *)
+extension ImageRenderer {
+    @MainActor
+    var nativeImage: NativeImage? {
+#if canImport(UIKit)
+        return self.uiImage
+#elseif canImport(AppKit)
+        return self.nsImage
+#endif
+    }
+}
+
+@available(tvOS 16.0, *)
+@available(iOS 16.0, *)
+extension View {
+    
+    public typealias DominantColorQuality = NativeImage.DominantColorQuality
+    public typealias DominantColorAlgorithm = NativeImage.DominantColorAlgorithm
+    typealias ImageColorError = NativeImage.ImageColorError
+    
+    /// Uses a `ImageRender` to snapshot you view, and create dominant colors
+    ///
+    /// Attempts to computes the dominant colors of the image.
+    /// This is not the absolute dominent colors, but instead colors that are similar are groupped together.
+    /// This avoids having to deal with many shades of the same colors, which are frequent when dealing with compression artifacts (jpeg etc.).
+    /// - Parameters:
+    ///   - quality: The quality used to determine the dominant colors. A higher quality will yield more accurate results, but will be slower.
+    ///   - algorithm: The algorithm used to determine the dominant colors. When using a k-means algorithm (`kMeansClustering`), a `CIKMeans` CIFilter isused. Unfortunately this filter doesn't work on the simulator.
+    /// - Returns: The dominant colors as array of `NativeColor` instances. When using the `.iterative` algorithm, this array is ordered where the first color is the most dominant one.
+    @MainActor
+    public func dominatColors(
+        with quality: DominantColorQuality = .fair,
+        algorithm: DominantColorAlgorithm = .iterative
+    ) throws -> [Color] {
+        
+        let renderer = ImageRenderer(content: self)
+        
+        guard let capture = renderer.nativeImage else {
+            throw ImageColorError.outputImageFailure
+        }
+        let colors = try capture.dominantColors(with: quality, algorithm: algorithm)
+        
+        return colors.map { Color($0) }
+    }
+    
+    public func dominantColorFrequencies(with quality: DominantColorQuality = .fair) throws -> [ColorFrequency<Color>] {
+        
+        let renderer = ImageRenderer(content: self)
+        
+        guard let capture = renderer.nativeImage else {
+            throw ImageColorError.outputImageFailure
+        }
+        let colors = try capture.dominantColorFrequencies(with: quality)
+        
+        return colors.map {
+            
+            ColorFrequency(color: Color( $0.color), count: $0.frequency)
+            
+        }
+    }
+    
 }

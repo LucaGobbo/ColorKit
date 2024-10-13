@@ -46,7 +46,7 @@ package struct LabCalculator {
     }
 }
 
-extension NativeColor {
+extension ColorProviding {
 
     /// The L* value of the CIELAB color space.
     /// L* represents the lightness of the color from 0 (black) to 100 (white).

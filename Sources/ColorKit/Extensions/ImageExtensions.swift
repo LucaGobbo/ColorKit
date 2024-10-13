@@ -61,14 +61,12 @@ extension NativeImage {
     #endif
 }
 
-extension Image {
-
-    public init(nativeImage: NativeImage) {
+public extension Image {
+    init(nativeImage: NativeImage) {
         #if canImport(UIKit)
             self.init(uiImage: nativeImage)
         #elseif canImport(AppKit)
             self.init(nsImage: nativeImage)
         #endif
     }
-
 }

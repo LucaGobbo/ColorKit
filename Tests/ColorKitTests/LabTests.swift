@@ -17,7 +17,7 @@ import Testing
 
 #endif
 
-@Suite(.tags(.colors))
+@Suite(.tags(.colors, .kit))
 struct LabTests {
 
     @Test func green() {

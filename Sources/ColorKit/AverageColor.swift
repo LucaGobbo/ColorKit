@@ -7,10 +7,10 @@
 //
 
 import CoreImage
+import SwiftUI
 
 extension NativeImage {
-
-   package enum ImageColorError: Error {
+    package enum ImageColorError: Error {
         /// The `CIImage` instance could not be created.
         case ciImageFailure
 
@@ -59,13 +59,29 @@ extension NativeImage {
 
         context.render(
             outputImage, toBitmap: &bitmap, rowBytes: 4, bounds: CGRect(x: 0, y: 0, width: 1, height: 1),
-            format: CIFormat.RGBA8, colorSpace: CGColorSpaceCreateDeviceRGB())
+            format: CIFormat.RGBA8, colorSpace: CGColorSpaceCreateDeviceRGB()
+        )
 
         let averageColor = NativeColor(
             red: CGFloat(bitmap[0]) / 255.0, green: CGFloat(bitmap[1]) / 255.0, blue: CGFloat(bitmap[2]) / 255.0,
-            alpha: CGFloat(bitmap[3]) / 255.0)
+            alpha: CGFloat(bitmap[3]) / 255.0
+        )
 
         return averageColor
     }
+}
 
+extension View {
+    /// Computes the average color of the image.
+    @available(iOS 16.0, *)
+    public func averageColor() throws -> Color {
+        let renderer = ImageRenderer(content: self)
+
+        guard let capture = renderer.nativeImage else {
+            throw NativeImage.ImageColorError.outputImageFailure
+        }
+
+        let color = try capture.averageColor()
+        return Color(color)
+    }
 }

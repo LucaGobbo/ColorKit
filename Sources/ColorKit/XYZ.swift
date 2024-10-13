@@ -8,15 +8,15 @@
 
 import Foundation
 
-struct XYZ {
-    let X: CGFloat
-    let Y: CGFloat
-    let Z: CGFloat
+package struct XYZ {
+    package let X: CGFloat
+    package let Y: CGFloat
+    package let Z: CGFloat
 }
 
-struct XYZCalculator {
+package struct XYZCalculator {
 
-    static func convert(rgb: RGB) -> XYZ {
+    package static func convert(rgb: RGB) -> XYZ {
         func transform(value: CGFloat) -> CGFloat {
             if value > 0.04045 {
                 return pow((value + 0.055) / 1.055, 2.4)
@@ -38,7 +38,7 @@ struct XYZCalculator {
 
 }
 
-extension NativeColor {
+extension ColorProviding {
 
     /// The X value of the XYZ color space.
     public var X: CGFloat {

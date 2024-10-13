@@ -19,7 +19,7 @@ import Testing
 
 #endif
 
-@Suite(.tags(.colors))
+@Suite(.tags(.colors, .kit))
 struct HexTests {
     fileprivate static let blackHex = "#000000"
     fileprivate static let whiteHex = "#ffffff"

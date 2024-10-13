@@ -16,7 +16,7 @@ import Testing
     import AppKit
 #endif
 
-@Suite(.tags(.colors))
+@Suite(.tags(.colors, .kit))
 struct ComplementaryColorTests {
 
     @Test func black() {

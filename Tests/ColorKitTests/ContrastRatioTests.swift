@@ -11,7 +11,7 @@ import Testing
 
 @testable import ColorKit
 
-@Suite(.tags(.colors))
+@Suite(.tags(.colors, .kit))
 struct ContrastRatioTests {
 
     @Test func blackWhite() {

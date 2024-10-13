@@ -17,7 +17,6 @@ extension CGSize {
     func transformToFit(in targetArea: CGFloat) -> CGSize {
         let ratio = area / targetArea
         let targetSize = CGSize(width: width / sqrt(ratio), height: height / sqrt(ratio))
-
         return targetSize
     }
 

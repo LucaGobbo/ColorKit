@@ -17,7 +17,8 @@ import Testing
     import AppKit
 #endif
 
-class RGBTests {
+@Suite(.tags(.colors, .kit))
+struct RGBTests {
 
     @Test func red() {
         let red: NativeColor = NativeColor.red()

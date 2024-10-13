@@ -11,6 +11,7 @@
     public import AppKit
 #endif
 
+/// Creates a stable type that either resolves to UIImage or NSImage
 #if canImport(UIKit)
     public typealias NativeImage = UIImage
 #elseif canImport(AppKit)
