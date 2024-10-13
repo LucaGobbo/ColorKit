@@ -7,6 +7,7 @@
 //
 
 import ColorKit
+import UIKit
 
 class PaletteViewController: UIViewController {
 
