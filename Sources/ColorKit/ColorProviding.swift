@@ -22,9 +22,5 @@ public protocol ColorProviding: Equatable {
 }
 
 extension ColorProviding {
-    var alpha: CGFloat {
-        opacity
-    }
+    var alpha: CGFloat { opacity }
 }
-
-

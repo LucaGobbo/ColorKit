@@ -386,9 +386,7 @@ extension View {
         let colors = try capture.dominantColorFrequencies(with: quality)
         
         return colors.map {
-            
-            ColorFrequency(color: Color( $0.color), count: $0.frequency)
-            
+            ColorFrequency(color: Color( $0.color), count: $0.frequency)            
         }
     }
     

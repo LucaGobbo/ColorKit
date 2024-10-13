@@ -30,7 +30,6 @@ public extension CIColor {
     @available(iOS 14.0, *)
     @available(tvOS 14.0, *)
     convenience init?(color: Color) {
-        let c = NativeColor(color)
-        self.init(nativeColor: c)
+        self.init(nativeColor:  NativeColor(color))
     }
 }
